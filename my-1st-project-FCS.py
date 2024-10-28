@@ -24,4 +24,7 @@ def main_menu():
         if choice =='2':
             pass
         if choice == '3':
+            print('Goodbye!')
             break
+        else:
+            print("Invalid Choice.")
