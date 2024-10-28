@@ -11,3 +11,17 @@ class Cities:
        self.path=path
     def deliverInfo(self):
         print(f'Cities: {self.city} Path: {self.path}')
+
+def main_menu():
+    while True:
+        print("Hello! Please enter: ")
+        print("1. To go to the Drivers' Menu")
+        print("2. To go to the Cities' Menu")
+        print("3. To exit the System")
+        choice = input('Enter your choice: ')
+        if choice == '1':
+            pass
+        if choice =='2':
+            pass
+        if choice == '3':
+            break
