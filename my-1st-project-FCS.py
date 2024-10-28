@@ -19,11 +19,14 @@ class DeliverySystem:
 
     def __init__(self):
         self.drivers=[]
+        self.next_id = 1
 
-    def add_driver(self, id, name,start_city):
+    def add_driver(self, name,start_city):
+        id = self.next_id
         driver = Driver(id ,name, start_city)
         self.drivers.append(driver)
-        
+        self.next_id=+1
+
     def show_drivers(self):
         if not self.drivers:
             print("No Drivers available")
@@ -41,10 +44,9 @@ class DeliverySystem:
             if choice =='1':
                 self.show_drivers()
             elif choice == '2':
-                id = input('Enter driver ID: ')
                 name= input('Enter new driver name: ')
                 start_city=input("Enter driver start city: ")
-                self.add_driver(id, name, start_city)
+                self.add_driver(name, start_city)
                 print("Driver was added")
             elif choice =='3':
                 pass
