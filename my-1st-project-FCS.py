@@ -28,3 +28,5 @@ def main_menu():
             break
         else:
             print("Invalid Choice.")
+if __name__ == "__main__":
+    Menu = main_menu()
