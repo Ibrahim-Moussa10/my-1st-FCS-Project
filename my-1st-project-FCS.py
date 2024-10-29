@@ -8,14 +8,41 @@ class Driver:
         return f'ID: {self.id}, Name: {self.name}, Start City: {self.start_city}'
 
 class Cities:
-    def __init__(self, city):
-        self.city= city
+    def __init__(self):
+        self.cities = {
+            "Beirut": ["Jbeil", "Akkar"],
+            "Jbeil": ["Beirut", "Akkar"],
+            "Akkar": ["Jbeil", "Beirut"],
+            "Sayda": ["Zahle"],
+            "Zahle": ["Sayda"]
+        }
+
+    def show_cities(self):
+        for city in self.cities.keys():
+            print(city)
+
+    def show_neighbors(self, city):
+        if city in self.cities:
+            neighbors = self.cities[city]
+            print(f"Neighbors of '{city}': {' & '.join(neighbors) if neighbors else 'None'}")
+        else:
+            print(f"City {city} does not exist.")
+
+    def add_city(self, city, neighbors=None):
+        if city not in self.cities:
+            self.cities[city] = neighbors if neighbors else[]
+            print(f"City {city} was added")
+        else:
+            print(f"City {city} already exists")
+    def __str__(self):
+        return " & ".join(self.cities.keys())
+
 
 class DeliverySystem:
       
     def __init__(self):
         self.drivers=[]
-        self.cities = []
+        self.cities = Cities()
         self.next_id = 1
 
 
@@ -24,6 +51,7 @@ class DeliverySystem:
         driver = Driver(id ,name, start_city)
         self.drivers.append(driver)
         self.next_id +=1
+        self.cities.add_city(start_city)
         
 
     def show_drivers(self):
@@ -33,19 +61,14 @@ class DeliverySystem:
             for driver in self.drivers:
                 print(f"Driver {driver} is available")
 
-    def add_cities(self,city_name):
-        if city_name not in self.cities:
-            self.cities.append(city_name)
-
-    def check_similar_drivers (self, start_city):
+    def check_similar_drivers(self):
         pass
 
     def show_cities(self):
-        if not self.cities:
-            print("No cities available")
-        else:
-            for city in self.cities:
-                print(city)
+        self.cities.show_cities()
+
+    def show_neighbors(self, city):
+        self.cities.show_neighbors(city)
 
     def drivers_menu(self):
         while True:
@@ -79,16 +102,20 @@ class DeliverySystem:
         while True:
             print("1. show cities")
             print("2. search city")
-            print("3. Priint close cities")
+            print("3. Print close cities")
             print("4. Print Drivers delivering to the city")
+            print("5. To go back")
             choice = input('Enter your choice: ')
             if choice == '1':
                 self.show_cities()
             elif choice =='2':
                 pass
             elif choice == '3':
-                pass
+                city = input("Enter city name: ")
+                self.show_neighbors(city)
             elif choice == '4':
+                pass
+            elif choice== '5':
                 break
             else:
                 print("Invalid Choice.")
@@ -112,6 +139,4 @@ class DeliverySystem:
 
 if __name__ == "__main__":
     system = DeliverySystem()
-    system.add_cities("Beirut")
-    system.add_cities("tRIPOLI")
     system.main_menu()
