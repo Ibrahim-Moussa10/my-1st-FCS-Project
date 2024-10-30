@@ -32,8 +32,7 @@ class Cities:
         if city not in self.cities:
             self.cities[city] = neighbors if neighbors else[]
             print(f"City {city} was added")
-        else:
-            print(f"City {city} already exists")
+
     def __str__(self):
         return " & ".join(self.cities.keys())
 
@@ -139,4 +138,7 @@ class DeliverySystem:
 
 if __name__ == "__main__":
     system = DeliverySystem()
+    system.add_driver('Max Verstappen', 'Akkar')
+    system.add_driver('Charies Leclerc', 'Saida')
+    system.add_driver('Lando Norris', 'Jbeil')
     system.main_menu()
