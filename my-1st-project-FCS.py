@@ -18,7 +18,7 @@ class Cities:
         }
 
     def show_cities(self):
-        for city in self.cities.keys():
+        for city in reversed(sorted(self.cities.keys())):
             print(city)
 
     def show_neighbors(self, city):
@@ -31,7 +31,6 @@ class Cities:
     def add_city(self, city, neighbors=None):
         if city not in self.cities:
             self.cities[city] = neighbors if neighbors else[]
-            print(f"City {city} was added")
 
     def __str__(self):
         return " & ".join(self.cities.keys())
@@ -60,14 +59,23 @@ class DeliverySystem:
             for driver in self.drivers:
                 print(f"Driver {driver} is available")
 
-    def check_similar_drivers(self):
-        pass
-
     def show_cities(self):
         self.cities.show_cities()
 
     def show_neighbors(self, city):
         self.cities.show_neighbors(city)
+
+    def check_similar_drivers(self, start_city):
+        return [driver for driver in self.drivers if driver.start_city == start_city]
+
+    def print_similar_drivers(self, city):
+        similar_drivers = self.check_similar_drivers(city)
+        if similar_drivers:
+            print(f'Drivers starting from {city} are:')
+            for driver in similar_drivers:
+                print(driver)
+        else:
+            print(f"No drivers start from {city}")
 
     def drivers_menu(self):
         while True:
@@ -92,10 +100,12 @@ class DeliverySystem:
                         print(driver)
                 else:
                     print(f"No similar drivers start from {start_city}")
+
             elif choice =='4':
                 break
+
             else:
-                print("Invalid Choice.")
+                print("Invalid choice")
     
     def cities_menu(self):
         while True:
@@ -113,11 +123,12 @@ class DeliverySystem:
                 city = input("Enter city name: ")
                 self.show_neighbors(city)
             elif choice == '4':
-                pass
+                city=input("Enter city name: ")
+                self.print_similar_drivers(city)
             elif choice== '5':
                 break
             else:
-                print("Invalid Choice.")
+                print("Invalid choice")
                 
     def main_menu(self):
         while True:
@@ -134,7 +145,7 @@ class DeliverySystem:
                 print('Goodbye!')
                 break
             else:
-                print("Invalid Choice.")
+                print("Invlid choice")
 
 if __name__ == "__main__":
     system = DeliverySystem()
