@@ -80,7 +80,14 @@ class DeliverySystem:
                 print(driver)
         else:
             print(f"No drivers start from {city}")
-
+        self.show_neighbors(city)
+        neighbors = self.cities.cities.get(city, [])
+        for neighbor in neighbors:
+            similar_drivers_neighbor = self.check_similar_drivers(neighbor)
+        if similar_drivers_neighbor:
+            print(f'Drivers starting from neighboring city {neighbor} are:')
+            for driver in similar_drivers_neighbor:
+                print(driver)
     def drivers_menu(self):
         while True:
             print("1. To view all the drivers")
@@ -91,12 +98,12 @@ class DeliverySystem:
             if choice =='1':
                 self.show_drivers()
             elif choice == '2':
-                name= input('Enter new driver name: ')
-                start_city=input("Enter driver start city: ")
+                name= input('Enter new driver name: ').capitalize()
+                start_city=input("Enter driver start city: ").capitalize()
                 self.add_driver(name, start_city)
                 print("Driver was added")
             elif choice =='3':
-                start_city = input("Enter city to check for cimilar drivers: ")
+                start_city = input("Enter city to check for cimilar drivers: ").capitalize()
                 similar_driver = self.check_similar_drivers(start_city)
                 if similar_driver:
                     print(f'Drivers starting from {start_city} are: ')
@@ -129,17 +136,13 @@ class DeliverySystem:
                 else:
                     print(f"No cities found containing '{key}")
             elif choice == '3':
-                city = input("Enter city name: ")
+                city = input("Enter city name: ").capitalize()
                 self.show_neighbors(city)
             elif choice == '4':
-                city=input("Enter city name: ")
+                city=input("Enter city name: ").capitalize()
                 self.print_similar_drivers(city)
             elif choice== '5':
-                letter=input("enter city to search: ")
-                for city in self.cities:
-                    for element in city:
-                        if element == letter:
-                            print(city)
+                break
                     
             else:
                 print("Invalid choice")
