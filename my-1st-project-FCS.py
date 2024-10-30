@@ -82,12 +82,15 @@ class DeliverySystem:
             print(f"No drivers start from {city}")
         self.show_neighbors(city)
         neighbors = self.cities.cities.get(city, [])
+
         for neighbor in neighbors:
             similar_drivers_neighbor = self.check_similar_drivers(neighbor)
-        if similar_drivers_neighbor:
-            print(f'Drivers starting from neighboring city {neighbor} are:')
-            for driver in similar_drivers_neighbor:
-                print(driver)
+            if similar_drivers_neighbor:
+                print(f'Drivers starting from neighboring city {neighbor} are:')
+                for driver in similar_drivers_neighbor:
+                    print(driver)
+        if not neighbors:
+            print(f"No neighboring cities found for {city}")
     def drivers_menu(self):
         while True:
             print("1. To view all the drivers")
