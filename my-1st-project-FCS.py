@@ -31,6 +31,10 @@ class Cities:
     def add_city(self, city, neighbors=None):
         if city not in self.cities:
             self.cities[city] = neighbors if neighbors else[]
+    
+    def search_cities(self, key):
+        cities = [city for city in self.cities if key in city]
+        return cities
 
     def __str__(self):
         return " & ".join(self.cities.keys())
@@ -118,7 +122,12 @@ class DeliverySystem:
             if choice == '1':
                 self.show_cities()
             elif choice =='2':
-                pass
+                key = input ("Enter a letter to search: ")
+                result = self.cities.search_cities(key)
+                if result:
+                    print(result)
+                else:
+                    print(f"No cities found containing '{key}")
             elif choice == '3':
                 city = input("Enter city name: ")
                 self.show_neighbors(city)
@@ -126,7 +135,12 @@ class DeliverySystem:
                 city=input("Enter city name: ")
                 self.print_similar_drivers(city)
             elif choice== '5':
-                break
+                letter=input("enter city to search: ")
+                for city in self.cities:
+                    for element in city:
+                        if element == letter:
+                            print(city)
+                    
             else:
                 print("Invalid choice")
                 
