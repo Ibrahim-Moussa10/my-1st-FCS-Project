@@ -49,12 +49,19 @@ class DeliverySystem:
 
 
     def add_driver(self, name,start_city):
+        if start_city not in self.cities.cities:
+            add_city = input(f'the city {start_city} is not available yet. would you like to add it?(y/n): ').lower()
+            if add_city== 'y':
+                self.cities.add_city(start_city)
+                print(f"{start_city} city was added")
+            else:
+                print("driver was not added as the city doesn't exist yet ")
+                return
         id = self.next_id
         driver = Driver(id ,name, start_city)
         self.drivers.append(driver)
         self.next_id +=1
         self.cities.add_city(start_city)
-        
 
     def show_drivers(self):
         if not self.drivers:
@@ -125,8 +132,8 @@ class DeliverySystem:
         while True:
             print("1. show cities")
             print("2. search city")
-            print("3. Print close cities")
-            print("4. Print Drivers delivering to the city")
+            print("3. Print neighboring cities")
+            print("4. Print Drivers delivering to city")
             print("5. To go back")
             choice = input('Enter your choice: ')
             if choice == '1':
@@ -170,6 +177,6 @@ class DeliverySystem:
 if __name__ == "__main__":
     system = DeliverySystem()
     system.add_driver('Max Verstappen', 'Akkar')
-    system.add_driver('Charies Leclerc', 'Saida')
+    system.add_driver('Charies Leclerc', 'Sayda')
     system.add_driver('Lando Norris', 'Jbeil')
     system.main_menu()
